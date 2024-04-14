@@ -14,7 +14,7 @@ def create_app():
         db.create_all()
         create_admin_user()
         populate_post()
-    
+
     return app
 
 app = create_app()

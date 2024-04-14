@@ -2,7 +2,7 @@ from flask import render_template, request, flash, redirect, url_for, session
 from models import db, Post, User
 
 def get_post():
-    posts = Post.query.order_by(Post.create_date.desc()).all()
+    posts = Post.query.order_by(Post.update_date.desc()).all()
     return posts
 
 def create_post():
@@ -51,3 +51,7 @@ def check_authenticated():
         return render_template('admin.html', posts=posts)
     else:
         return redirect(url_for('main.login'))
+    
+def show_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', post=post)

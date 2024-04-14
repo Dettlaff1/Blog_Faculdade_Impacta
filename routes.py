@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from controllers import create_post, edit_post, delete_post, get_post, check_authenticated, authenticate
+from controllers import create_post, edit_post, delete_post, get_post, check_authenticated, authenticate, show_post
 
 blueprint = Blueprint('main', __name__)
 
@@ -31,3 +31,7 @@ def delete(post_id):
 @blueprint.app_errorhandler(404)
 def page_not_found(e):
     return render_template('error.html', error_message='Página não encontrada'), 404
+
+@blueprint.route('/post/<int:post_id>')
+def post(post_id):
+    return show_post(post_id)
