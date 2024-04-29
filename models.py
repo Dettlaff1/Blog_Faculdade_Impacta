@@ -12,6 +12,7 @@ class Post(db.Model):
     content = db.Column(db.String(500), nullable=False)
     create_date = db.Column(db.DateTime, default=dt.datetime.now)
     update_date = db.Column(db.DateTime, default=dt.datetime.now, onupdate=dt.datetime.now)
+    comments = db.relationship('Comment', backref='post', lazy=True)
 
 class User(db.Model):
 
@@ -19,6 +20,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(10), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    text = db.Column(db.Text, nullable=False)
+    create_date = db.Column(db.DateTime, default=dt.datetime.now, nullable=False)
 
 def populate_post():
     if Post.query.count() == 0:

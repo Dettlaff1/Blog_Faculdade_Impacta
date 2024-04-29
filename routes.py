@@ -32,6 +32,6 @@ def delete(post_id):
 def page_not_found(e):
     return render_template('error.html', error_message='Página não encontrada'), 404
 
-@blueprint.route('/post/<int:post_id>')
+@blueprint.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post(post_id):
     return show_post(post_id)

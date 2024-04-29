@@ -1,5 +1,5 @@
 from flask import render_template, request, flash, redirect, url_for, session
-from models import db, Post, User
+from models import db, Post, User, Comment
 
 def get_post():
     posts = Post.query.order_by(Post.update_date.desc()).all()
@@ -54,4 +54,10 @@ def check_authenticated():
     
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
+    if request.method == 'POST':
+        comment_text = request.form.get('comment-text')
+        comment = Comment(post_id=post_id, text=comment_text)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('main.post', post_id=post.id))
     return render_template('post.html', post=post)
