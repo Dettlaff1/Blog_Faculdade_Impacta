@@ -1,9 +1,14 @@
-<nav class="navbar bg-body-tertiary">
+<nav class="navbar bg-body-tertiary justify-content-center">
     <div class="container-fluid justify-content-center">
         <a class="navbar-brand mb-0 h1" href="/">
             <img src="{{ url_for('static', filename='img/monkey.png') }}" alt="Logo" width="26" height="26"
                 class="d-inline-block align-text-top">
             Blog do Marquinhos
         </a>
+    </div>
+    <div class="ml-auto">
+        <form class="form-inline my-2 my-lg-0" action="{{ url_for('main.search') }}" method="GET">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" name="query">
+        </form>
     </div>
 </nav>

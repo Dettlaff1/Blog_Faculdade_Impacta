@@ -61,3 +61,11 @@ def show_post(post_id):
         db.session.commit()
         return redirect(url_for('main.post', post_id=post.id))
     return render_template('post.html', post=post)
+
+def search_post():
+    query = request.args.get('query')
+    if query:
+        results = Post.query.filter(Post.title.contains(query) | Post.content.contains(query)).all()
+    else:
+        results = []
+    return render_template('search_results.html', query=query, results=results)
